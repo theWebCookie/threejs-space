@@ -45,11 +45,10 @@ scene.add(space);
 //Sun
 const sunGeometry = new THREE.SphereGeometry(696 / 4, 64, 16);
 const texture2 = new THREE.TextureLoader().load(sunTexture);
-const sunMaterial = new THREE.MeshStandardMaterial({ map: texture2, roughness: 0, metalness: 0 });
+const sunMaterial = new THREE.MeshBasicMaterial({ map: texture2, roughness: 0, metalness: 0 });
 const sun = new THREE.Mesh(sunGeometry, sunMaterial);
-sun.castShadow = true;
-sun.receiveShadow = true;
-sun.receiveShadow = true;
+// sun.castShadow = true;
+// sun.receiveShadow = true;
 scene.add(sun);
 
 //Mercury
@@ -134,7 +133,12 @@ const timeCirculation = {
   neptune: 164.788,
 };
 
-const light = new THREE.AmbientLight(0xffffff);
+// const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
+// directionalLight.position.set(100, 100, 100);
+// scene.add(directionalLight);
+
+const light = new THREE.PointLight(0xffffff, 1, 10000);
+light.position.set(0, 0, 0);
 scene.add(light);
 
 // Camera
@@ -168,6 +172,16 @@ const tick = () => {
   const elapsedTime = clock.getElapsedTime();
 
   sun.rotation.y = elapsedTime;
+  mercury.rotation.y = elapsedTime;
+  venus.rotation.y = elapsedTime;
+  earth.rotation.y = elapsedTime;
+  mars.rotation.y = elapsedTime;
+  jupiter.rotation.y = elapsedTime;
+  saturn.rotation.y = elapsedTime;
+  uranus.rotation.y = elapsedTime;
+  neptune.rotation.y = elapsedTime;
+  space.rotation.y = elapsedTime / 100;
+
   mercury.position.set(Math.cos((elapsedTime * 1) / timeCirculation.mercury) * 400, 0, Math.sin((elapsedTime * 1) / timeCirculation.mercury) * 400);
   venus.position.set(Math.cos((elapsedTime * 1) / timeCirculation.venus) * 450, 0, Math.sin((elapsedTime * 1) / timeCirculation.venus) * 450);
   earth.position.set(Math.cos((elapsedTime * 1) / timeCirculation.earth) * 500, 0, Math.sin((elapsedTime * 1) / timeCirculation.earth) * 500);
